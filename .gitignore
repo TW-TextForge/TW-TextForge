@@ -10,7 +10,4 @@ __pycache__
 *.log
 *.tmp
 
-*.csv
-*.ipynb
-
 backup

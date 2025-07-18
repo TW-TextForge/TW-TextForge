@@ -7,9 +7,24 @@ dependencies = [
     "ipykernel",
     "nest_asyncio",
     "jupyterlab_widgets",
+    
+    "pydantic",
+    "python-dotenv",
+    
     "huggingface_hub[cli]",
     "datasets",
     "datasets[audio]",
     "datasets[vision]",
-    "python-dotenv",
+
+    "langchain",
+    "langchain_community",
+    "langgraph",
+    "langchain-google-genai",
+    "langchain-openai",
+    "langchain_ollama",
+    "langchain-qdrant",
+    "qdrant-client",
+    
+    "lxml",
+    "beautifulsoup4",
 ]
