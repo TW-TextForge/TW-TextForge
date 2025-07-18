@@ -1,0 +1,15 @@
+[project]
+name = "tw-gsat"
+version = "0.0.1"
+requires-python = ">3.10"
+dependencies = [
+    "setuptools",
+    "ipykernel",
+    "nest_asyncio",
+    "jupyterlab_widgets",
+    "huggingface_hub[cli]",
+    "datasets",
+    "datasets[audio]",
+    "datasets[vision]",
+    "python-dotenv",
+]

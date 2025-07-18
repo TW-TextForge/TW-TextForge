@@ -1,0 +1,16 @@
+.venv
+.conda
+.vscode
+
+*.pyc
+__pycache__
+
+.env
+
+*.log
+*.tmp
+
+*.csv
+*.ipynb
+
+backup
