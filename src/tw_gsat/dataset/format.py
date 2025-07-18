@@ -1,5 +1,3 @@
-from . import url_pat
-
 def gen_text_pre_format(example):
     """
     產生純存字的預處理格式，可用於 NLP 模型的輸入，可行用途包括：
@@ -12,12 +10,6 @@ def gen_text_pre_format(example):
     dataset = dataset.map(gen_text_pre_format)
     ```
     """
-    
-    # 有 URL 代表有圖片，在產生預處理格式時略過
-    for f in ("article_images", "question_images", "answer"):
-        v = example.get(f)
-        if v and url_pat.search(v):
-            return {"text_pre_format": ""}
 
     parts = []
     def add(label, content):
@@ -31,7 +23,7 @@ def gen_text_pre_format(example):
     for opt in ("A","B","C","D","E"):
         val = example.get(opt)
         if val:
-            opts.append(f"（{opt}）{val}")
+            opts.append(f"({opt}){val}")
     if opts:
         parts.append("題目選項:")
         parts.extend(opts)
