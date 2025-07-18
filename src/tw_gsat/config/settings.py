@@ -9,7 +9,6 @@ class Settings(BaseSettings):
     openai_api_url: str
     openrouter_api_url: str
     ollama_api_url: str
-    ollama_embed_api_url: str
     
     # AI Model Provider Keys
     openai_api_key: str
@@ -23,22 +22,6 @@ class Settings(BaseSettings):
     temperature: float
     top_p: float
     max_tokens: int
-    
-    # Embedding settings
-    embedding_model: str
-    embedding_provider: str
-    
-    # Qdrant settings
-    qdrant_url: str
-    chunk_size: int = 8194
-    chunk_overlap: int = 50
-    vector_size: int = 1024
-    distance: str = "Cosine"
-    collection_name: str = "code_collection"
-    
-    
-    # Other URLs
-    searxng_url: str
     
     class Config:
         env_file = ".env"
