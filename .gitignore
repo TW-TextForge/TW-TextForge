@@ -1,6 +1,6 @@
 .venv
 .conda
-.vscode
+# .vscode
 
 *.pyc
 __pycache__
