@@ -13,3 +13,6 @@ __pycache__
 *.egg-info
 
 *.docx#
+
+# 開發用
+workspace/
