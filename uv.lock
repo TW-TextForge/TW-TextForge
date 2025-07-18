@@ -3256,7 +3256,7 @@ wheels = [
 [[package]]
 name = "tw-gsat"
 version = "0.0.1"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "beautifulsoup4" },
     { name = "datasets", extra = ["audio", "vision"] },

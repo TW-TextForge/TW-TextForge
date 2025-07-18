@@ -1,5 +1,11 @@
 # 學測試題資料集
 
+## 快速啟用
+```bash
+uv venv
+uv sync
+```
+
 ## 資料來源
 網站: [大考中心](https://www.ceec.edu.tw/)  
 使用: 自由。  
