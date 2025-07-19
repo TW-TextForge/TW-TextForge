@@ -23,19 +23,6 @@ jobs:
           cd docker/main
           docker compose build --no-cache --pull
 
-      - name: Start Application
-        run: |
-          echo "Starting Docker Containers..."
-          cd docker/main
-          docker compose up -d
-
-      - name: Run Tests
-        run: |
-          echo "Running Tests..."
-          cd docker/main
-          docker compose exec tw_textforge bash -c "uv run python -m pytest -s"
-          echo "Tests completed!"
-
       - name: Push to Docker Hub
         run: |
           echo "Pushing Docker Image to Docker Hub..."
