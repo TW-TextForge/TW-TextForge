@@ -30,17 +30,17 @@ uv venv
 uv sync
 ```
 
-## [範本](./samples/)
+## [範本](./examples/)
 
-### [1. 資料集載入(CSV)與上傳(Huggice Face Hub)](./samples/Dataset_Load_And_Upload.ipynb)
+### [1. 資料集載入(CSV)與上傳(Huggice Face Hub)](./examples/Dataset_Load_And_Upload.ipynb)
 
 載入 CSV 和上傳到雲端中心儲存  
 並且可以用 remote 的方式降低硬體需求
 
-### [2. 使用 LLM 生成學測題目的題目解析(開發中)](./samples/Agent_Generate_Analysis.ipynb)
+### [2. 使用 LLM 生成學測題目的題目解析(開發中)](./examples/Agent_Generate_Analysis.ipynb)
 
 生成題目解析作為訓練資料之一，讓 NLP 相關訓練效果更好
 
-### [3. 修改系統路徑以便即時導入模組，適合於自行調整專案程式碼](./samples/Modules_Hot_Update.ipynb)
+### [3. 修改系統路徑以便即時導入模組，適合於自行調整專案程式碼](./examples/Modules_Hot_Update.ipynb)
 
 以模組熱導入的方式使用套件，讓開發更容易

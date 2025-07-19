@@ -38,11 +38,11 @@ dependencies = [
     "langchain-google-genai",
     "langchain-openai",
     "langchain_ollama",
-    "langchain-qdrant",
-    "qdrant-client",
     
     "lxml",
     "beautifulsoup4",
+    
+    "gradio",
 ]
 
 [tool.setuptools]
