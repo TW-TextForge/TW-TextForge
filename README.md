@@ -14,9 +14,16 @@
 該專案有調整題目敘述，**即重製題目**，讓資料更適合 NLP  
 請務必根據**Apache 2.0許可證**使用專案程式碼與資料集
 
-## 快速安裝
+## 快速安裝 - [uv 套件管理工具](https://docs.astral.sh/uv/getting-started/installation/)
 
-### [uv 套件管理工具](https://docs.astral.sh/uv/getting-started/installation/)
+### 開發階段
+
+```bash
+uv venv
+uv pip install -e .[dev]
+```
+
+### 生產階段
 
 ```bash
 uv venv

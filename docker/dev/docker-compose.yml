@@ -1,0 +1,13 @@
+x-default-opts: &default-opts
+  tty: true
+  stdin_open: true
+  privileged: true
+  ipc: private
+
+services:
+  tw_textforge:
+    <<: *default-opts
+    build:
+      context: ../../
+      dockerfile: docker/dev/dockerfile
+    container_name: tw_textforge

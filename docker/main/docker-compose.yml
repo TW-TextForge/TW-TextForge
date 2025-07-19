@@ -1,0 +1,11 @@
+x-default-opts: &default-opts
+  tty: true
+  stdin_open: true
+  privileged: true
+  ipc: private
+
+services:
+  tw_textforge:
+    <<: *default-opts
+    image: tw_textforge:latest
+    container_name: tw_textforge
