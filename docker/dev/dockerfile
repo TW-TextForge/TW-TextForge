@@ -17,8 +17,8 @@ ENV PATH="/root/.local/bin:$PATH"
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 ENV PYTHONDONTWRITEBYTECODE=1
 
-RUN mkdir /tw_textforge
-COPY . /tw_textforge/
-WORKDIR /tw_textforge
+RUN mkdir /TW-Textforge
+COPY . /TW-Textforge/
+WORKDIR /TW-Textforge
 RUN uv venv
 RUN uv pip install -e .[dev]

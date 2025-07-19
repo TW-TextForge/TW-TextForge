@@ -26,9 +26,10 @@ jobs:
       - name: Start Application
         run: |
           docker compose up -d
+          working-directory: ./docker/dev
 
-      # - name: Run Tests
-      #   run: |
-      #     echo "Running Tests..."
-      #     docker compose exec tw_textforge bash -c "source .venv/bin/activate && pytest -s"
-      #     echo "Tests completed!"
+      - name: Run Tests
+        run: |
+          echo "Running Tests..."
+          docker compose exec tw_textforge bash -c "uv run python -m pytest -s"
+          echo "Tests completed!"
