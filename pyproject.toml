@@ -6,6 +6,19 @@ build-backend = "setuptools.build_meta"
 name = "tw-gsat"
 version = "0.0.2"
 requires-python = ">3.10"
+description = ""
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+
+authors = [
+  { name = "Xuan‑You Lin", email = "a0985821880@gmail.com" }
+]
+
+maintainers = [
+  { name = "Xuan‑You Lin", email = "a0985821880@gmail.com" }
+]
+
 dependencies = [
     "setuptools",
     "ipykernel",
