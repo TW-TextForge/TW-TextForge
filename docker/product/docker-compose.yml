@@ -7,7 +7,7 @@ x-default-opts: &default-opts
 services:
   tw_textforge:
     <<: *default-opts
-    image: twtextforge/tw-textforge:dev-latest
+    image: twtextforge/tw-textforge:latest
     container_name: tw_textforge
 #     volumes:
 #       - huggingface:/root/.cache/huggingface
