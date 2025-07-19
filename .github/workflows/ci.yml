@@ -32,10 +32,11 @@ jobs:
       - name: Run Tests
         run: |
           echo "Running Tests..."
+          cd docker/dev
           docker compose exec tw_textforge bash -c "uv run python -m pytest -s"
           echo "Tests completed!"
-          
-      - name: push to Docker Hub
+
+      - name: Push to Docker Hub
         run: |
           echo "Pushing Docker Image to Docker Hub..."
           cd docker/dev
