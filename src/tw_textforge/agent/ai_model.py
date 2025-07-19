@@ -1,4 +1,4 @@
-from tw_gsat.config.settings import setting
+from tw_textforge.config.settings import setting
 
 class AIModel():
     """A class for AI model settings and initialization."""
