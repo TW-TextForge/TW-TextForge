@@ -7,9 +7,6 @@ x-default-opts: &default-opts
 services:
   tw_textforge:
     <<: *default-opts
-    build:
-      context: ../../
-      dockerfile: docker/main/dockerfile
     image: tw_textforge:latest
     container_name: tw_textforge
 #     volumes:

@@ -1,0 +1,3 @@
+# 不同平台上的行結尾處理方式不同，Linux/MacOS 是 LF, Windows 是 CRLF
+# 這個設定可以確保正確處理文本文件的行結尾
+* text=auto

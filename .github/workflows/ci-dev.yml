@@ -1,4 +1,4 @@
-name: CI Pipeline
+name: CI Pipeline Dev
 
 on:
   push:
@@ -20,15 +20,25 @@ jobs:
       - name: Build Application
         run: |
           echo "Building Docker Image..."
+          cd docker/dev
           docker compose build --no-cache --pull
-          working-directory: ./docker/dev
 
       - name: Start Application
         run: |
+          echo "Starting Docker Containers..."
+          cd docker/dev
           docker compose up -d
 
-      # - name: Run Tests
-      #   run: |
-      #     echo "Running Tests..."
-      #     docker compose exec tw_textforge bash -c "source .venv/bin/activate && pytest -s"
-      #     echo "Tests completed!"
+      - name: Run Tests
+        run: |
+          echo "Running Tests..."
+          cd docker/dev
+          docker compose exec tw_textforge bash -c "uv run python -m pytest -s"
+          echo "Tests completed!"
+
+      - name: Push to Docker Hub
+        run: |
+          echo "Pushing Docker Image to Docker Hub..."
+          cd docker/dev
+          docker compose push
+          echo "Docker Image pushed successfully!"

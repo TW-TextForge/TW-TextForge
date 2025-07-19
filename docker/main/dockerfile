@@ -21,4 +21,4 @@ RUN mkdir /TW-Textforge
 COPY . /TW-Textforge/
 WORKDIR /TW-Textforge
 RUN uv venv
-RUN uv pip install -e .[dev]
+RUN uv sync
