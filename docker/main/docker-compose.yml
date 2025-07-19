@@ -10,7 +10,7 @@ services:
     build:
       context: ../../
       dockerfile: docker/main/dockerfile
-    image: tw_textforge:latest
+    image: twtextforge/tw-textforge:latest
     container_name: tw_textforge
 #     volumes:
 #       - huggingface:/root/.cache/huggingface
