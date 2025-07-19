@@ -20,12 +20,13 @@ jobs:
       - name: Build Application
         run: |
           echo "Building Docker Image..."
-          working-directory: ./docker/dev
+          cd docker/dev
           docker compose build --no-cache --pull
 
       - name: Start Application
         run: |
-          working-directory: ./docker/dev
+          echo "Starting Docker Containers..."
+          cd docker/dev
           docker compose up -d
 
       - name: Run Tests
