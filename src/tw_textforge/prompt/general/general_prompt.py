@@ -1,3 +1,5 @@
+# 推薦 CoT 提示詞，此處為了方便，就不設計 CoT 提示詞了
+
 single_generator_agent_prompt = """你是一位公正、樂於助人的 AI 助手。"""
 
 dual_generator_agent_prompt = """你是一位公正、樂於助人的 AI 助手。"""

@@ -7,8 +7,8 @@ class GeneralMultiAgentGraph:
     基於 LangGraph 的通用流程圖，使用模型的 tool_calling 功能實現多個角色的協作
     角色包括：
     - supervisor: 監督者，負責監督生成器和提取器的行為，確保它們按照預期工作
-    - generator: 生成器，作為監督者的工具，用於回答問題，不限制回答的格式，避免模型性能下降
-    - extractor: 提取器，作為監督者的工具，提取回答內容最重要的資訊，避免開場白或是無關內容影響資料品質
+    - generator: 生成器，作為監督者的工具；回答問題，不限制回答的格式，避免模型性能下降
+    - extractor: 提取器，作為監督者的工具；提取回答內容最重要的資訊，避免開場白或是無關內容影響資料品質
     """
     
     def __init__(self, supervisor_llm, generator_llm, generator_llm_tools, extractor_llm):
