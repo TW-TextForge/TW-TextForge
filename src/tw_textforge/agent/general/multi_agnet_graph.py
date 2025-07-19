@@ -10,26 +10,29 @@ class GeneralMultiAgentGraph:
     - generator: 生成器，作為監督者的工具；回答問題，不限制回答的格式，避免模型性能下降
     - extractor: 提取器，作為監督者的工具；提取回答內容最重要的資訊，避免開場白或是無關內容影響資料品質
     """
-    
+    supervisor_prompt = multi_supervisor_prompt
+    generator_agent_prompt = multi_generator_agent_prompt
+    extractor_agent_prompt = multi_extractor_agent_prompt
     def __init__(self, supervisor_llm, generator_llm, generator_llm_tools, extractor_llm):
-        
+        if prompt is None:
+            prompt = self.PROMPT 
         self.generator_agent = create_react_agent(
             model=generator_llm,
             tools=generator_llm_tools,
-            prompt=multi_generator_agent_prompt,
+            prompt=self.generator_agent_prompt,
             name="generator_agent",
         )
         self.extractor_agent = create_react_agent(
             model=extractor_llm,
             tools=[],
-            prompt=multi_extractor_agent_prompt,
+            prompt=self.extractor_agent_prompt,
             name="extractor_agent",
         )
         
         self.supervisor = create_supervisor(
             model=supervisor_llm,
             agents=[self.generator_agent, self.extractor_agent],
-            prompt=multi_supervisor_prompt,
+            prompt=self.supervisor_prompt,
             add_handoff_back_messages=True,
             output_mode="full_history",
         ).compile()

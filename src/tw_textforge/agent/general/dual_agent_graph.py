@@ -14,19 +14,19 @@ class GeneralDualAgentGraph:
     - generator: 生成器，回答問題，不限制回答的格式，避免模型性能下降
     - extractor: 提取器，提取回答內容的重要資訊，避免開場白或是無關內容影響資料品質
     """
-    
+    generator_agent_prompt = dual_generator_agent_prompt
+    extractor_agent_prompt = dual_extractor_agent_prompt
     def __init__(self, generator_llm, generator_llm_tools, extractor_llm):
-        # tool node
         tool_node = ToolNode(generator_llm_tools)
         generator_llm_with_tools = generator_llm.bind_tools(generator_llm_tools)
         
         def generator_agent(state: MessagesState):
-            state["messages"].insert(0, SystemMessage(content=dual_generator_agent_prompt))
+            state["messages"].insert(0, SystemMessage(content=self.generator_agent_prompt))
             response = generator_llm_with_tools.invoke(state["messages"])
             return {"messages": [response]}
         
         def extractor_agent(state: MessagesState):
-            wrapped = HumanMessage(content=f"{dual_extractor_agent_prompt}\n{state["messages"][-1].content}")
+            wrapped = HumanMessage(content=f"{self.extractor_agent_prompt}\n{state["messages"][-1].content}")
             response = extractor_llm.invoke(state["messages"] + [wrapped])
             return {"messages": [response]}
         

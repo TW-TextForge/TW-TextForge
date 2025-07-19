@@ -5,14 +5,12 @@ class GeneralSingleAgentGraph:
     """
     基於 LangGraph 的通用單代理流程圖
     """
-    PROMPT = single_generator_agent_prompt
-    def __init__(self, generator_llm, generator_llm_tools, prompt=None):
-        if prompt is None:
-            prompt = self.PROMPT 
+    prompt = single_generator_agent_prompt
+    def __init__(self, generator_llm, generator_llm_tools):
         self.graph = create_react_agent(
             model=generator_llm,
             tools=generator_llm_tools,
-            prompt=prompt,
+            prompt=self.prompt,
             name="generator_agent",
         )
     
