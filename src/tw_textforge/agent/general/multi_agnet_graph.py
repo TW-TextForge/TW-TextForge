@@ -1,7 +1,7 @@
 from langgraph.prebuilt import create_react_agent
 from langgraph_supervisor import create_supervisor
 from IPython.display import display, Image
-from tw_textforge.prompt.general.general_prompt import generator_agent_prompt, extractor_agent_prompt, supervisor_prompt
+from tw_textforge.prompt.general.general_prompt import multi_supervisor_prompt, multi_generator_agent_prompt, multi_extractor_agent_prompt
 class GeneralMultiAgentGraph:
     """
     基於 LangGraph 的通用流程圖，使用模型的 tool_calling 功能實現多個角色的協作
@@ -16,20 +16,20 @@ class GeneralMultiAgentGraph:
         self.generator_agent = create_react_agent(
             model=generator_llm,
             tools=generator_llm_tools,
-            prompt=generator_agent_prompt,
+            prompt=multi_generator_agent_prompt,
             name="generator_agent",
         )
         self.extractor_agent = create_react_agent(
             model=extractor_llm,
             tools=[],
-            prompt=extractor_agent_prompt,
+            prompt=multi_extractor_agent_prompt,
             name="extractor_agent",
         )
         
         self.supervisor = create_supervisor(
             model=supervisor_llm,
             agents=[self.generator_agent, self.extractor_agent],
-            prompt=supervisor_prompt,
+            prompt=multi_supervisor_prompt,
             add_handoff_back_messages=True,
             output_mode="full_history",
         ).compile()

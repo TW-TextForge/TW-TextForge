@@ -1,6 +1,6 @@
 from langgraph.prebuilt import create_react_agent
 from IPython.display import display, Image
-from tw_textforge.prompt.general.general_prompt import generator_agent_prompt
+from tw_textforge.prompt.general.general_prompt import single_generator_agent_prompt
 class GeneralSingleAgentGraph:
     """
     基於 LangGraph 的通用單代理流程圖
@@ -10,7 +10,7 @@ class GeneralSingleAgentGraph:
         self.graph = create_react_agent(
             model=generator_llm,
             tools=generator_llm_tools,
-            prompt=generator_agent_prompt,
+            prompt=single_generator_agent_prompt,
             name="generator_agent",
         )
         

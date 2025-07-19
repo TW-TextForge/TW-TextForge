@@ -1,5 +1,5 @@
 from IPython.display import display, Image
-from tw_textforge.prompt.general.general_prompt import generator_agent_prompt, extractor_agent_prompt
+from tw_textforge.prompt.general.general_prompt import dual_generator_agent_prompt, dual_extractor_agent_prompt
 from langgraph.graph import StateGraph, MessagesState, START, END
 from typing import Literal
 from langgraph.prebuilt import ToolNode
@@ -21,12 +21,12 @@ class GeneralDualAgentGraph:
         generator_llm_with_tools = generator_llm.bind_tools(generator_llm_tools)
         
         def generator_agent(state: MessagesState):
-            state["messages"].insert(0, SystemMessage(content=generator_agent_prompt))
+            state["messages"].insert(0, SystemMessage(content=dual_generator_agent_prompt))
             response = generator_llm_with_tools.invoke(state["messages"])
             return {"messages": [response]}
         
         def extractor_agent(state: MessagesState):
-            wrapped = HumanMessage(content=f"{extractor_agent_prompt}\n{state["messages"][-1].content}")
+            wrapped = HumanMessage(content=f"{dual_extractor_agent_prompt}\n{state["messages"][-1].content}")
             response = extractor_llm.invoke(state["messages"] + [wrapped])
             return {"messages": [response]}
         
