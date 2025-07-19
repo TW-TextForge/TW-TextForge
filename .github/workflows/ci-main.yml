@@ -1,0 +1,44 @@
+name: CI Pipeline Main
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Docker login
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      - name: Build Application
+        run: |
+          echo "Building Docker Image..."
+          cd docker/main
+          docker compose build --no-cache --pull
+
+      - name: Start Application
+        run: |
+          echo "Starting Docker Containers..."
+          cd docker/main
+          docker compose up -d
+
+      - name: Run Tests
+        run: |
+          echo "Running Tests..."
+          cd docker/main
+          docker compose exec tw_textforge bash -c "uv run python -m pytest -s"
+          echo "Tests completed!"
+
+      - name: Push to Docker Hub
+        run: |
+          echo "Pushing Docker Image to Docker Hub..."
+          cd docker/main
+          docker compose push
+          echo "Docker Image pushed successfully!"
