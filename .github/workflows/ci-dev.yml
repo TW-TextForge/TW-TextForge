@@ -44,7 +44,7 @@ jobs:
       - name: Copy .env file to container
         run: |
           echo "Copying .env file to Docker container..."
-          docker cp .env tw_textforge:/TW-Textforge/.env
+          docker cp .env tw_textforge:/app/.env
           echo ".env file copied successfully!"
 
       - name: Run Tests
