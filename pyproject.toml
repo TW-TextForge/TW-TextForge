@@ -34,10 +34,11 @@ dependencies = [
 
     "langchain",
     "langchain_community",
-    "langgraph",
     "langchain-google-genai",
     "langchain-openai",
     "langchain_ollama",
+    "langgraph",
+    "langgraph-supervisor",
     
     "lxml",
     "beautifulsoup4",

@@ -2,10 +2,10 @@ import os
 from dotenv import load_dotenv
 from pydantic.v1 import BaseSettings
 
-# 1. 載入 .env.local（優先較低）
+# 載入 .env.local（優先較低）
 load_dotenv(".env.local", override=False)
 
-# 2. 載入 .env（優先較高，會覆蓋已存在的）
+# 載入 .env（優先較高，會覆蓋已存在的）
 load_dotenv(".env", override=True)
 
 class Settings(BaseSettings):
@@ -32,7 +32,7 @@ class Settings(BaseSettings):
     max_tokens: int
 
     class Config:
-        # env_file 可保留，但實際上上面已經用 dotenv 載入環境變數
+        # env_file 保留，但實際上上面已經用 dotenv 載入環境變數
         env_file = None
 
 # 初始化設定
