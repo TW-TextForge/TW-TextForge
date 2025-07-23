@@ -44,6 +44,8 @@ dependencies = [
     "beautifulsoup4",
     
     "gradio",
+    
+    "pyperclip",
 ]
 
 [tool.setuptools]

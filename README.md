@@ -3,6 +3,7 @@
 ![logo](./assets/TW-TextForge_Preview.png)
 
 ## 使用須知
+
 1. 考試試題之使用符合著作權法
 
     根據中華民國政府的[著作權法](https://law.moj.gov.tw/LawClass/LawAll.aspx?PCode=J0070017) - 第9條 
@@ -22,6 +23,7 @@
     也請務必遵守資料集的 **指定許可證**
     
     衍生參考資料: [考試題目也有著作權嗎？－林正椈律師](https://www.glorylaw.com.tw/knowledge-detail/1429/)
+    
 
 2. 基於語言模型的合成資料集 - 上下游關係
 
@@ -51,17 +53,21 @@ uv venv
 uv sync
 ```
 
+## 公開資料
+[學測考試試題整理(僅文字)]()
+
 ## [範本](./examples/)
 
-### [1. 資料集載入(CSV)與上傳(Huggice Face Hub)](./examples/Dataset_Load_And_Upload.ipynb)
+### [1. 載入 CSV 檔並且上傳到 Huggice Face Hub](./examples/Dataset_Load_And_Upload.ipynb)
 
-載入 CSV 和上傳到雲端中心儲存  
-並且可以用 remote 的方式降低硬體需求
+該專案使用 Google Sheet 並且透過網路發布的功能釋出資料  
+在程式中載入網路發布的資料並且上傳到 Huggice Face Hub  
+後續可利用流式(streaming)載入資料集，降低硬體需求
 
 ### [2. 使用 LLM 生成學測題目的題目解析(開發中)](./examples/Agent_Generate_Analysis.ipynb)
 
 生成題目解析作為訓練資料之一，讓 NLP 相關訓練效果更好
 
-### [3. 修改系統路徑以便即時導入模組，適合於自行調整專案程式碼](./examples/Modules_Hot_Update.ipynb)
+### [3. 修改系統路徑導入模組，適合修改內部程式碼](./examples/Modules_Hot_Update.ipynb)
 
-以模組熱導入的方式使用套件，讓開發更容易
+該方法在安裝過專案包的 Docker Image 也適用，可讓開發更容易
