@@ -21,7 +21,7 @@
     適用該條款的考試，包含：學測、會考、學校段考試題，但是不包含補習班、出版商自製的試題  
     複雜情況：若學校段考考題使用了出版商的題目，那該題目仍然受到著作權的保護，為了規避法律風險，最佳實踐方案是只收集大考考試試題  
     該專案有調整題目敘述，**即重製題目**，讓資料更適合 NLP  
-    請務必根據 **Apache 2.0許可證** 使用專案程式碼  
+    請務必根據 **[Apache 2.0 許可證](https://github.com/TsukiSama9292/TW-TextForge/blob/main/LICENSE)** 使用專案程式碼  
     也請務必遵守資料集的 **指定許可證**
     
     衍生參考資料: [考試題目也有著作權嗎？－林正椈律師](https://www.glorylaw.com.tw/knowledge-detail/1429/)
@@ -85,10 +85,19 @@ uv pip install -e .[dev]
 
 ### [2. LangGraph 單 Agent 範本](https://github.com/TsukiSama9292/TW-TextForge/blob/main/examples/GSATChineseGraph_QuestionAnalysis.ipynb)
 
-生成題目解析作為訓練資料之一，讓 NLP 相關訓練效果更好
+LangGraph 單 Agent 範本
 
 ### [3. 修改系統路徑導入模組，適合修改內部程式碼](https://github.com/TsukiSama9292/TW-TextForge/blob/main/examples/Modules_Hot_Update.ipynb)
 
 該方法在安裝過專案包的 Docker Image 也適用，可讓開發更容易
 
-### [4. 擷取學測試題的題目和選項、答案，自動複製到剪貼簿(若支援)](https://github.com/TsukiSama9292/TW-TextForge/blob/main/examples/Modules_Hot_Update.ipynb)
+### [4. 擷取學測試題的題目和選項、答案，自動複製到剪貼簿(若支援)，方便放到試算表中](https://github.com/TsukiSama9292/TW-TextForge/blob/main/examples/Modules_Hot_Update.ipynb)
+
+- 題目和選項：適合用於從 Word 手動複製文字後，透過工具過濾
+  - 根據文字規律提取內容
+    - 題號後面都有 /t
+    - 每個選項都是 (A) (B) (C) (D) (E)，但不要把選項放同一行，暫時不支援判斷單行多選項
+- 答案：適合用於從 PDF 手動複製提取文字後，透過工具過濾
+  - 根據文字規律提取內容
+    - 題號 答案
+    - "題號 答案"+" "+"題號 答案"
