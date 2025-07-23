@@ -39,22 +39,29 @@
 
 ## 快速安裝 - [uv 套件管理工具](https://docs.astral.sh/uv/getting-started/installation/)
 
-### 開發階段
+### 生產階段(本套件可能不太適合鎖死版本)
+[Pypi 套件庫](https://pypi.org/project/tw_textforge/)
+
+```bash
+pip install tw_textforge
+```
+
+### 開發階段(給有興趣的人自行衍生開發)
 
 ```bash
 uv venv
 uv pip install -e .[dev]
 ```
 
-### 生產階段
+### 安裝測試用的套件包(不推薦)
+[測試用的套件庫](https://test.pypi.org/project/tw_textforge/)
 
 ```bash
-uv venv
-uv sync
+pip install -i https://test.pypi.org/simple/ tw_textforge==0.0.3.dev0
 ```
 
 ## 公開資料
-[學測考試試題整理(僅文字)]()
+[學測考試試題整理](https://docs.google.com/spreadsheets/d/e/2PACX-1vRtnMPEutqfeoQS2BNu2MGvSfM-ti-dNJTIDkd3BxMyAh7E0w-bbIShMgafX805UHSyyexNs_LxU0So/pubhtml)
 
 ## [範本](./examples/)
 
