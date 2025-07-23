@@ -1,10 +1,23 @@
-name: CI Pipeline Dev
+name: tests
 
 on:
+  workflow_dispatch:
   push:
     branches:
-      - dev
-  workflow_dispatch:
+      - "main"
+    paths:
+      - "**/*.py"
+      - "pyproject.toml"
+      - ".github/workflows/main.yml"
+      - ".env.local"
+  pull_request:
+    branches:
+      - "main"
+    paths:
+      - "**/*.py"
+      - "pyproject.toml"
+      - ".github/workflows/main.yml"
+      - ".env.local"
 
 jobs:
   ci:
@@ -53,10 +66,3 @@ jobs:
           cd docker/dev
           docker compose exec tw_textforge bash -c "uv run python -m pytest -s"
           echo "Tests completed!"
-
-      - name: Push to Docker Hub
-        run: |
-          echo "Pushing Docker Image to Docker Hub..."
-          cd docker/dev
-          docker compose push
-          echo "Docker Image pushed successfully!"

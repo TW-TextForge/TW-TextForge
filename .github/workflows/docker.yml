@@ -1,10 +1,25 @@
-name: CI Pipeline Main
+name: docker
 
 on:
+  workflow_dispatch:
   push:
     branches:
-      - main
-  workflow_dispatch:
+      - "main"
+    paths:
+      - "**/*.py"
+      - "pyproject.toml"
+      - "docker/**"
+      - ".github/workflows/main.yml"
+      - ".env.local"
+  pull_request:
+    branches:
+      - "main"
+    paths:
+      - "**/*.py"
+      - "pyproject.toml"
+      - "docker/**"
+      - ".github/workflows/main.yml"
+      - ".env.local"
 
 jobs:
   ci:
