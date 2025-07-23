@@ -44,7 +44,11 @@
 
 [台灣學測 - 中文考科(仍在繼續收錄中，從 114 學年度開始，目前到 105 學年度)](https://huggingface.co/datasets/TsukiOwO/TW-GSAT-Chinese)
 
-## 支援情況
+## 公開資料
+
+[學測考試試題整理](https://docs.google.com/spreadsheets/d/e/2PACX-1vRtnMPEutqfeoQS2BNu2MGvSfM-ti-dNJTIDkd3BxMyAh7E0w-bbIShMgafX805UHSyyexNs_LxU0So/pubhtml)
+
+## 套件支援情況
 
 ### 作業系統
 
@@ -60,7 +64,7 @@
 推薦: 3.10 ~ 3.12  
 目前較推薦: 3.11  
 
-## 快速安裝 - [uv 套件管理工具](https://docs.astral.sh/uv/getting-started/installation/)
+## 快速安裝
 
 ### 生產階段(本套件可能不太適合鎖死版本)
 [Pypi 套件庫](https://pypi.org/project/tw_textforge/)
@@ -75,9 +79,6 @@ pip install tw_textforge
 uv venv
 uv pip install -e .[dev]
 ```
-
-## 公開資料
-[學測考試試題整理](https://docs.google.com/spreadsheets/d/e/2PACX-1vRtnMPEutqfeoQS2BNu2MGvSfM-ti-dNJTIDkd3BxMyAh7E0w-bbIShMgafX805UHSyyexNs_LxU0So/pubhtml)
 
 ## [範本](https://github.com/TsukiSama9292/TW-TextForge/tree/main/examples)
 
