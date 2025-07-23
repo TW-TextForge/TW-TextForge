@@ -1,4 +1,4 @@
-name: CI Pipeline Main
+name: Main Docker
 
 on:
   push:

@@ -1,6 +1,6 @@
 # TW-TextForge: 建立台灣本土語言模型語料庫的工具箱
 
-![logo](./assets/TW-TextForge_Preview.png)
+![logo](https://raw.githubusercontent.com/TsukiSama9292/TW-TextForge/refs/heads/main/assets/TW-TextForge_Preview.png)
 
 ## 使用須知
 
