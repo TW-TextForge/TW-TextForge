@@ -1,0 +1,32 @@
+name: Publish Python Package
+
+on:
+  push:
+    branches:
+      - dev
+      - main
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        run: pip install uv
+
+      - name: Build package
+        run: uv build
+
+      - name: Publish to TestPyPI
+        if: github.ref == 'refs/heads/dev'
+        env:
+          UV_PUBLISH_TOKEN: ${{ secrets.TEST_PYPI_API_TOKEN }}
+        run: uv publish --index testpypi
+
+      - name: Publish to PyPI
+        if: github.ref == 'refs/heads/main'
+        env:
+          UV_PUBLISH_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
+        run: uv publish
