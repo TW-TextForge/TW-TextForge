@@ -88,7 +88,7 @@ uv pip install -e .[dev]
 後續可利用 Datasets 的流式讀取(streaming) 載入資料集，降低模型訓練硬體需求  
 算是 Datasets 的 "Hello World!"
 
-### [2. LangGraph 單 Agent 範本](https://github.com/TsukiSama9292/TW-TextForge/blob/main/examples/GSATChineseGraph_QuestionAnalysis.ipynb)
+### [2. LangGraph 單 Agent 範本](https://github.com/TsukiSama9292/TW-TextForge/blob/main/examples/Single_Agent.ipynb)
 
 LangGraph 單 Agent 範本
 
@@ -106,3 +106,6 @@ LangGraph 單 Agent 範本
   - 根據文字規律提取內容
     - 題號 答案
     - "題號 答案"+" "+"題號 答案"
+
+### [5. 生成學測國文考科題目分析](https://)
+
