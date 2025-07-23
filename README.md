@@ -55,13 +55,6 @@ uv venv
 uv pip install -e .[dev]
 ```
 
-### 安裝測試用的套件包(不推薦)
-[測試用的套件庫](https://test.pypi.org/project/tw_textforge/)
-
-```bash
-pip install -i https://test.pypi.org/simple/ tw_textforge==0.0.3.dev0
-```
-
 ## 公開資料
 [學測考試試題整理](https://docs.google.com/spreadsheets/d/e/2PACX-1vRtnMPEutqfeoQS2BNu2MGvSfM-ti-dNJTIDkd3BxMyAh7E0w-bbIShMgafX805UHSyyexNs_LxU0So/pubhtml)
 
