@@ -47,8 +47,8 @@
 | 作業系統 | 支援 | 備註 | 開發者情況 |
 |--------|------|-----|----------|
 | Linux | ✅ | 測試時，使用 Github Action ubuntu-latest | 日常使用 Ubuntu |
-| Windows | 未知 | 測試時，使用 Github Action windows-latest | 偶爾使用 |
-| MacOS | 未知 | 測試時，使用 Github Action macos-13| 沒有 Mac 裝置 |
+| Windows | ✅ | 測試時，使用 Github Action windows-latest | 偶爾使用 |
+| MacOS | ✅ | 測試時，使用 Github Action macos-13| 沒有 Mac 裝置 |
 
 ### Python 版本
 
@@ -90,3 +90,5 @@ uv pip install -e .[dev]
 ### [3. 修改系統路徑導入模組，適合修改內部程式碼](https://github.com/TsukiSama9292/TW-TextForge/blob/main/examples/Modules_Hot_Update.ipynb)
 
 該方法在安裝過專案包的 Docker Image 也適用，可讓開發更容易
+
+### [4. 擷取學測試題的題目和選項、答案，自動複製到剪貼簿(若支援)](https://github.com/TsukiSama9292/TW-TextForge/blob/main/examples/Modules_Hot_Update.ipynb)

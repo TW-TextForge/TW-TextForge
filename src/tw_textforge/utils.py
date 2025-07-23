@@ -20,7 +20,7 @@ def extract_questions(raw_text):
         options = re.findall(r'\([A-E]\)(.+)', options_block)
         cleaned_options = [opt.strip() for opt in options]
 
-        # 每題一列：問題 + 選項們
+        # 每題一列：問題 + 選項
         results.append('\t'.join([quoted_question] + cleaned_options))
     if pyperclip.determine_clipboard():
         try:
@@ -70,7 +70,8 @@ def extract_answers(data):
     pairs = sorted([(int(num), ans) for num, ans in pairs], key=lambda x: x[0])
     if pyperclip.determine_clipboard():
         try:
-            pyperclip.copy('\n'.join([f"{ans}" for num, ans in pairs]))
+            pyperclip.copy('\n'.join([f"{ans}" for _, ans in pairs]))
         except Exception as e:
             print(f"Error copying to clipboard: {e}")
-    return pairs
+    result = [f"{ans}" for _, ans in pairs]
+    return result
