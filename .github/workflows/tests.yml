@@ -3,66 +3,54 @@ name: tests
 on:
   workflow_dispatch:
   push:
-    branches:
-      - "main"
+    branches: [main]
     paths:
       - "**/*.py"
       - "pyproject.toml"
-      - ".github/workflows/main.yml"
-      - ".env.local"
+      - ".github/workflows/tests.yml"
   pull_request:
-    branches:
-      - "main"
-    paths:
-      - "**/*.py"
-      - "pyproject.toml"
-      - ".github/workflows/main.yml"
-      - ".env.local"
+    branches: [main]
 
 jobs:
-  ci:
-    runs-on: ubuntu-latest
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-13]
+        python-version: ["3.10", "3.11", "3.12"]
+
+    runs-on: ${{ matrix.os }}
+
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}-${{ matrix.os }}-${{ matrix.python-version }}
+      cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Docker login
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
 
-      - name: Build Application
-        run: |
-          echo "Building Docker Image..."
-          cd docker/dev
-          docker compose build --no-cache --pull
+      - name: Install uv
+        run: pip install uv
+        
+      - name: Install dependencies
+        run: uv pip install ".[dev]"
 
-      - name: Start Application
+      - name: Write .env file
+        # force Bash on all runners so the echo 語法一致
+        shell: bash
         run: |
-          echo "Starting Docker Containers..."
-          cd docker/dev
-          docker compose up -d
-
-          
-      - name: Set up .env file
-        run: |
-          echo "Setting up .env file..."
-          echo "HF_TOKEN=${{ secrets.HF_TOKEN }}" > .env
-          echo "GENAI_API_KEY=${{ secrets.GENAI_API_KEY }}" >> .env
+          echo "HF_TOKEN=${{ secrets.HF_TOKEN }}"              > .env
+          echo "GENAI_API_KEY=${{ secrets.GENAI_API_KEY }}"    >> .env
           echo "OPENROUTER_API_KEY=${{ secrets.OPENROUTER_API_KEY }}" >> .env
-          echo "PROVIDER=${{ secrets.PROVIDER }}" >> .env
-          echo "MODEL_NAME=${{ secrets.MODEL_NAME }}" >> .env
-          echo "TEMPERATURE=1.0" >> .env
-          echo "MAX_TOKENS=${{ secrets.MAX_TOKENS }}" >> .env
-          
-      - name: Copy .env file to container
-        run: |
-          echo "Copying .env file to Docker container..."
-          docker cp .env tw_textforge:/app/.env
-          echo ".env file copied successfully!"
+          echo "PROVIDER=${{ secrets.PROVIDER }}"              >> .env
+          echo "MODEL_NAME=${{ secrets.MODEL_NAME }}"          >> .env
+          echo "TEMPERATURE=1.0"                               >> .env
+          echo "MAX_TOKENS=${{ secrets.MAX_TOKENS }}"          >> .env
 
-      - name: Run Tests
-        run: |
-          echo "Running Tests..."
-          cd docker/dev
-          docker compose exec tw_textforge bash -c "uv run python -m pytest -s"
-          echo "Tests completed!"
+      - name: Run tests
+        run: uv run python -m pytest -s

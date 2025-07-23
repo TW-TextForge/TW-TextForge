@@ -1,28 +1,14 @@
 name: docker
 
 on:
-  workflow_dispatch:
-  push:
-    branches:
-      - "main"
-    paths:
-      - "**/*.py"
-      - "pyproject.toml"
-      - "docker/**"
-      - ".github/workflows/main.yml"
-      - ".env.local"
-  pull_request:
-    branches:
-      - "main"
-    paths:
-      - "**/*.py"
-      - "pyproject.toml"
-      - "docker/**"
-      - ".github/workflows/main.yml"
-      - ".env.local"
+  workflow_run:
+    workflows: ["tests"]
+    types:
+      - completed
 
 jobs:
-  ci:
+  build:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
     steps:
