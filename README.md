@@ -39,6 +39,23 @@
     
     上游透過本工具，呼叫 Gemini API 產生合成資料集，並且上游釋出該資料集為 MIT 協議，下游使用者即可自由使用該資料集
 
+
+## 支援情況
+
+### 作業系統
+
+| 作業系統 | 支援 | 備註 | 開發者情況 |
+|--------|------|-----|----------|
+| Linux | ✅ | 測試時，使用 Github Action ubuntu-latest | 日常使用 Ubuntu |
+| Windows | 未知 | 測試時，使用 Github Action windows-latest | 偶爾使用 |
+| MacOS | 未知 | 測試時，使用 Github Action macos-13| 沒有 Mac 裝置 |
+
+### Python 版本
+
+這跟專案依賴套件有關  
+推薦: 3.10 ~ 3.12  
+目前較推薦: 3.11  
+
 ## 快速安裝 - [uv 套件管理工具](https://docs.astral.sh/uv/getting-started/installation/)
 
 ### 生產階段(本套件可能不太適合鎖死版本)
@@ -58,18 +75,18 @@ uv pip install -e .[dev]
 ## 公開資料
 [學測考試試題整理](https://docs.google.com/spreadsheets/d/e/2PACX-1vRtnMPEutqfeoQS2BNu2MGvSfM-ti-dNJTIDkd3BxMyAh7E0w-bbIShMgafX805UHSyyexNs_LxU0So/pubhtml)
 
-## [範本](./examples/)
+## [範本](https://github.com/TsukiSama9292/TW-TextForge/tree/main/examples)
 
-### [1. 載入 CSV 檔並且上傳到 Huggice Face Hub](./examples/Dataset_Load_And_Upload.ipynb)
+### [1. 載入 CSV 檔並且上傳到 Huggice Face Hub](https://github.com/TsukiSama9292/TW-TextForge/blob/main/examples/Dataset_Load_And_Upload.ipynb)
 
-該專案使用 Google Sheet 並且透過網路發布的功能釋出資料  
-在程式中載入網路發布的資料並且上傳到 Huggice Face Hub  
-後續可利用流式(streaming)載入資料集，降低硬體需求
+載入 CSV 靜態資料檔案並且上傳到 Huggice Face  
+後續可利用 Datasets 的流式讀取(streaming) 載入資料集，降低模型訓練硬體需求  
+算是 Datasets 的 "Hello World!"
 
-### [2. 使用 LLM 生成學測題目的題目解析(開發中)](./examples/Agent_Generate_Analysis.ipynb)
+### [2. LangGraph 單 Agent 範本](https://github.com/TsukiSama9292/TW-TextForge/blob/main/examples/GSATChineseGraph_QuestionAnalysis.ipynb)
 
 生成題目解析作為訓練資料之一，讓 NLP 相關訓練效果更好
 
-### [3. 修改系統路徑導入模組，適合修改內部程式碼](./examples/Modules_Hot_Update.ipynb)
+### [3. 修改系統路徑導入模組，適合修改內部程式碼](https://github.com/TsukiSama9292/TW-TextForge/blob/main/examples/Modules_Hot_Update.ipynb)
 
 該方法在安裝過專案包的 Docker Image 也適用，可讓開發更容易

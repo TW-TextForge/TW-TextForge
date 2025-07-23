@@ -1,3 +1,4 @@
+from tw_textforge.agent.ai_model import AIModel
 from langgraph.prebuilt import create_react_agent
 from langgraph_supervisor import create_supervisor
 from IPython.display import display, Image
@@ -13,7 +14,7 @@ class GeneralMultiAgentGraph:
     supervisor_prompt = multi_supervisor_prompt
     generator_agent_prompt = multi_generator_agent_prompt
     extractor_agent_prompt = multi_extractor_agent_prompt
-    def __init__(self, supervisor_llm, generator_llm, generator_llm_tools, extractor_llm):
+    def __init__(self, supervisor_llm=None, generator_llm=None, generator_llm_tools=[], extractor_llm=None):
         if prompt is None:
             prompt = self.PROMPT 
         self.generator_agent = create_react_agent(

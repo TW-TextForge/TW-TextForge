@@ -50,7 +50,6 @@ dependencies = [
     "fastmcp",
     "docker",
     "pdf-to-markdown",
-    "marker-pdf",
 
 ]
 

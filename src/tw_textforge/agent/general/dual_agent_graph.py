@@ -1,3 +1,4 @@
+from tw_textforge.agent.ai_model import AIModel
 from IPython.display import display, Image
 from tw_textforge.prompt.general.general_prompt import dual_generator_agent_prompt, dual_extractor_agent_prompt
 from langgraph.graph import StateGraph, MessagesState, START, END
@@ -16,7 +17,11 @@ class GeneralDualAgentGraph:
     """
     generator_agent_prompt = dual_generator_agent_prompt
     extractor_agent_prompt = dual_extractor_agent_prompt
-    def __init__(self, generator_llm, generator_llm_tools, extractor_llm):
+    def __init__(self, generator_llm=None, generator_llm_tools=[], extractor_llm=None):
+        if generator_llm is None:
+            generator_llm = AIModel().llm
+        if extractor_llm is None:
+            extractor_llm = AIModel().llm
         tool_node = ToolNode(generator_llm_tools)
         generator_llm_with_tools = generator_llm.bind_tools(generator_llm_tools)
         
