@@ -4,7 +4,7 @@ def test_gsat_chinese_question_analysis():
     from tw_textforge.sdk.GSAT.Chinese import GSAT_Chinese_QuestionAnalysis
 
     try:
-        QuestionAnalysiser = GSAT_Chinese_QuestionAnalysis(break_time=2)
+        QuestionAnalysiser = GSAT_Chinese_QuestionAnalysis(break_time=2, interactive=False, test_mode=True)
         QuestionAnalysiser.run()
         merge_dataset = QuestionAnalysiser.checkpoint_mergeTo_datasets()
         print(merge_dataset[0])

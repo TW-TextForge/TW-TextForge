@@ -18,7 +18,7 @@ class GSAT_Chinese_QuestionAnalysis():
     - csv_path: 儲存結果的 CSV 檔案路徑，預設為 "output/checkpoint/{dataset_name}.csv"
     """
     
-    def __init__(self, dataset_name="TsukiOwO/TW-GSAT-Chinese", split="train", download_mode="force_redownload", generator_llm=None, generator_llm_tools=[], col_name = "analysis", break_time=10):
+    def __init__(self, dataset_name="TsukiOwO/TW-GSAT-Chinese", split="train", download_mode="force_redownload", generator_llm=None, generator_llm_tools=[], col_name = "analysis", break_time=10, interactive=True, test_mode=False):
         self.dataset = load_dataset(dataset_name, split=split, download_mode=download_mode)
         self.dataset = self.dataset.add_column(col_name, [""] * len(self.dataset))
         self.chinese_graph = GSATChineseGraph_QuestionAnalysis(generator_llm=generator_llm, generator_llm_tools=generator_llm_tools)
@@ -27,6 +27,8 @@ class GSAT_Chinese_QuestionAnalysis():
         self.save_dir = "output/checkpoint"
         os.makedirs(self.save_dir, exist_ok=True)
         self.csv_path = os.path.join(self.save_dir, f"{self.safe_dataset_name}.csv")
+        self.interactive = interactive
+        self.test_mode = test_mode
 
         if os.path.exists(self.csv_path):
             with open(self.csv_path, "r", encoding="utf-8", newline="") as f:
@@ -65,11 +67,14 @@ class GSAT_Chinese_QuestionAnalysis():
                 writer.writerow([analysis])
                 f.flush()
                 
-                if (idx + 1) % break_time == 0 and idx != self.processed_count:
-                    print(f"暫停題目: { idx + 2 }，等待輸入繼續或中止...")
-                    if input("繼續請輸入 Y/y，輸入其他任意鍵中止: ").strip().lower() != "y":
-                        print("結束執行。")
-                        break
+                if self.interactive:
+                    if (idx + 1) % break_time == 0 and idx != self.processed_count:
+                        print(f"暫停題目: { idx + 2 }，等待輸入繼續或中止...")
+                        if input("繼續請輸入 Y/y，輸入其他任意鍵中止: ").strip().lower() != "y":
+                            print("結束執行。")
+                            break
+                elif self.test_mode:
+                    break
 
     def checkpoint_mergeTo_datasets(self):
         checkpoint_df = pd.read_csv(self.csv_path)
