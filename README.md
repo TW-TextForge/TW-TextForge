@@ -1,6 +1,8 @@
-# TW-TextForge: 建立台灣本土語言模型語料庫的工具箱
-
 ![logo](https://raw.githubusercontent.com/TsukiSama9292/TW-TextForge/refs/heads/main/assets/TW-TextForge_Preview.png)
+
+[![GitHub last commit](https://img.shields.io/github/last-commit/TsukiSama9292/TW-TextForge)](https://github.com/TsukiSama9292/TW-TextForge/commits/main)
+[![GitHub workflow](https://github.com/TsukiSama9292/TW-TextForge/actions/workflows/tests.yml/badge.svg)](https://github.com/TsukiSama9292/TW-TextForge/actions/workflows/tests.yml)
+[![PyPI](https://img.shields.io/pypi/v/tw_textforge)](https://pypi.org/project/tw_textforge/)
 
 ## 使用須知
 

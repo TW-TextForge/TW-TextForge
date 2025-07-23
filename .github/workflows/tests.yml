@@ -1,4 +1,4 @@
-name: Dev Docker
+name: tests
 
 on:
   push:
@@ -53,10 +53,3 @@ jobs:
           cd docker/dev
           docker compose exec tw_textforge bash -c "uv run python -m pytest -s"
           echo "Tests completed!"
-
-      - name: Push to Docker Hub
-        run: |
-          echo "Pushing Docker Image to Docker Hub..."
-          cd docker/dev
-          docker compose push
-          echo "Docker Image pushed successfully!"
