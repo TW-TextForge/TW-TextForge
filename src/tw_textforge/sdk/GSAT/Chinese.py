@@ -3,6 +3,12 @@ import csv
 from tw_textforge.agent.GSAT.chinese import GSATChineseGraph_QuestionAnalysis
 from datasets import load_dataset
 import pandas as pd
+from functools import partial
+
+def update_analysis(example, idx, checkpoint_analysis, write_col_name):
+    if idx < len(checkpoint_analysis):
+        example[write_col_name] = checkpoint_analysis[idx]
+    return example
 
 class GSAT_Chinese_QuestionAnalysis():
     """
@@ -14,17 +20,20 @@ class GSAT_Chinese_QuestionAnalysis():
     - generator_llm_tools: 用於生成分析的 LLM 工具列表，預設為空列表
     - col_name: 用於存儲分析結果的列名，預設為 "analysis"
     - break_time: 每執行多少題目後暫停一次，預設為 10
-    - save_dir: 儲存結果的目錄，預設為 "output/checkpoint"
-    - csv_path: 儲存結果的 CSV 檔案路徑，預設為 "output/checkpoint/{dataset_name}.csv"
+    - save_dir: 儲存結果的目錄，預設為 "outputs/checkpoint"
+    - csv_path: 儲存結果的 CSV 檔案路徑，預設為 "outputs/checkpoint/{dataset_name}.csv"
     """
     
-    def __init__(self, dataset_name="TsukiOwO/TW-GSAT-Chinese", split="train", download_mode="force_redownload", generator_llm=None, generator_llm_tools=[], col_name = "analysis", break_time=10, interactive=True, test_mode=False):
-        self.dataset = load_dataset(dataset_name, split=split, download_mode=download_mode)
-        self.dataset = self.dataset.add_column(col_name, [""] * len(self.dataset))
+    def __init__(self, dataset = None, dataset_name="TsukiOwO/TW-GSAT-Chinese", split="train", download_mode="force_redownload", generator_llm=None, generator_llm_tools=[], read_col_name = "text_pre_format", write_col_name = "analysis", break_time=10, interactive=True, test_mode=False):
+        if dataset is not None:
+            self.dataset = dataset
+        else:
+            self.dataset = load_dataset(dataset_name, split=split, download_mode=download_mode)
+        self.dataset = self.dataset.add_column(write_col_name, [""] * len(self.dataset))
         self.chinese_graph = GSATChineseGraph_QuestionAnalysis(generator_llm=generator_llm, generator_llm_tools=generator_llm_tools)
         self.break_time = break_time
         self.safe_dataset_name = dataset_name.replace("/", "_")
-        self.save_dir = "output/checkpoint"
+        self.save_dir = "outputs/checkpoint"
         os.makedirs(self.save_dir, exist_ok=True)
         self.csv_path = os.path.join(self.save_dir, f"{self.safe_dataset_name}.csv")
         self.interactive = interactive
@@ -40,14 +49,15 @@ class GSAT_Chinese_QuestionAnalysis():
         self.mode = "a" if os.path.exists(self.csv_path) else "w"
         self.first_run = self.processed_count == 0
 
-        self.col_name = col_name
+        self.read_col_name = read_col_name
+        self.write_col_name = write_col_name
         self.map_dataset = None
     
     def run(self):
         with open(self.csv_path, self.mode, newline="", encoding="utf-8") as f:
             writer = csv.writer(f)
             if self.first_run:
-                writer.writerow([self.col_name])  # col 0, row 0 是 header
+                writer.writerow([self.write_col_name])  # col 0, row 0 是 header
 
             break_time = self.break_time
             total = len(self.dataset)
@@ -58,7 +68,7 @@ class GSAT_Chinese_QuestionAnalysis():
                 print(f"當前執行步驟: {idx + 1}/{total}")
                 response = self.chinese_graph.graph.invoke({
                     "messages": [
-                        {"role": "user", "content": self.dataset[idx]["text_pre_format"]}
+                        {"role": "user", "content": self.dataset[idx][self.read_col_name]}
                     ]
                 })
                 analysis = response["messages"][-1].content
@@ -78,15 +88,14 @@ class GSAT_Chinese_QuestionAnalysis():
 
     def checkpoint_mergeTo_datasets(self):
         checkpoint_df = pd.read_csv(self.csv_path)
-        # 把 checkpoint 內容轉成 list
-        checkpoint_analysis = checkpoint_df[self.col_name].tolist()
-        # 用 map 並且用 idx 取得對應的 analysis 值覆寫
-        def update_analysis(example, idx):
-            if idx < len(checkpoint_analysis):
-                example[self.col_name] = checkpoint_analysis[idx]
-            return example
-        self.map_dataset = self.dataset.map(update_analysis, with_indices=True)
+        checkpoint_analysis = checkpoint_df[self.write_col_name].tolist()
+        # 使用 functools.partial 函式，創建一個新的函式 `fn`，
+        # 該函式是 `update_analysis` 的偏函式，預先綁定了 `checkpoint_analysis` 和 `write_col_name` 兩個參數。
+        # 這樣在後續調用 `fn` 時，只需提供 `example` 和 `idx` 參數。
+        fn = partial(update_analysis, checkpoint_analysis=checkpoint_analysis, write_col_name=self.write_col_name)
+        self.map_dataset = self.dataset.map(fn, with_indices=True)
         return self.map_dataset
+
     
     def remove_checkpoint(self):
         if os.path.exists(self.csv_path):

@@ -75,3 +75,30 @@ def extract_answers(data):
             print(f"Error copying to clipboard: {e}")
     result = [f"{ans}" for _, ans in pairs]
     return result
+
+import pdfplumber
+
+def extract_pdf_all_text(path):
+    """讀取 PDF 檔案的所有文字內容。
+    參數：
+        path (str): PDF 檔案的路徑。
+    返回：
+        str: PDF 檔案的所有文字內容。
+    """
+    pdf_text = ""
+    with pdfplumber.open(path) as pdf:
+        for page in pdf.pages:
+            text = page.extract_text()
+            pdf_text += text
+    return pdf_text
+
+def extract_pdf_pages(path):
+    """讀取 PDF 檔案的每一頁文字內容，返回一個列表，每個元素是對應頁面的文字。
+    參數：
+        path (str): PDF 檔案的路徑。
+    返回：
+        list: 包含每一頁文字內容的列表。
+    """
+    with pdfplumber.open(path) as pdf:
+        pages = [page.extract_text() for page in pdf.pages]
+    return pages

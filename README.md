@@ -76,27 +76,15 @@ pip install tw_textforge
 ### 開發階段(給有興趣的人自行衍生開發)
 
 ```bash
+git clone https://github.com/TsukiSama9292/TW-TextForge
+cd TW-TextForge
 uv venv
 uv pip install -e .[dev]
 ```
 
 ## [範本](https://github.com/TsukiSama9292/TW-TextForge/tree/main/examples)
 
-### [1. 載入 CSV 檔並且上傳到 Huggice Face Hub](https://github.com/TsukiSama9292/TW-TextForge/blob/main/examples/Dataset_Load_And_Upload.ipynb)
-
-載入 CSV 靜態資料檔案並且上傳到 Huggice Face  
-後續可利用 Datasets 的流式讀取(streaming) 載入資料集，降低模型訓練硬體需求  
-算是 Datasets 的 "Hello World!"
-
-### [2. LangGraph 單 Agent 範本](https://github.com/TsukiSama9292/TW-TextForge/blob/main/examples/Single_Agent.ipynb)
-
-LangGraph 單 Agent 範本
-
-### [3. 修改系統路徑導入模組，適合修改內部程式碼](https://github.com/TsukiSama9292/TW-TextForge/blob/main/examples/Modules_Hot_Update.ipynb)
-
-該方法在安裝過專案包的 Docker Image 也適用，可讓開發更容易
-
-### [4. 擷取學測試題的題目和選項、答案，自動複製到剪貼簿(若支援)，方便放到試算表中](https://github.com/TsukiSama9292/TW-TextForge/blob/main/examples/Modules_Hot_Update.ipynb)
+### [1. 擷取學測試題的題目和選項、答案，自動複製到剪貼簿(若支援)，方便放到試算表中](https://github.com/TsukiSama9292/TW-TextForge/blob/main/examples/Modules_Hot_Update.ipynb)
 
 - 題目和選項：適合用於從 Word 手動複製文字後，透過工具過濾
   - 根據文字規律提取內容
@@ -107,5 +95,15 @@ LangGraph 單 Agent 範本
     - 題號 答案
     - "題號 答案"+" "+"題號 答案"
 
-### [5. 生成學測國文考科題目分析](https://)
+### [2. 生成學測國文考科題目分析](https://github.com/TsukiSama9292/TW-TextForge/blob/main/examples/GSAT_Chinese_QuestionAnalysis.ipynb)
 
+
+### [3. 載入 CSV 檔並且上傳到 Huggice Face Hub](https://github.com/TsukiSama9292/TW-TextForge/blob/main/examples/Dataset_Load_And_Upload.ipynb)
+
+載入 CSV 靜態資料檔案並且上傳到 Huggice Face  
+後續可利用 Datasets 的流式讀取(streaming) 載入資料集，降低模型訓練硬體需求  
+算是 Datasets 的 "Hello World!"
+
+### [4. 修改系統路徑導入模組，適合修改內部程式碼](https://github.com/TsukiSama9292/TW-TextForge/blob/main/examples/Modules_Hot_Update.ipynb)
+
+該方法在安裝過專案包的 Docker Image 也適用，可讓開發更容易
