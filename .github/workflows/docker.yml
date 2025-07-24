@@ -5,6 +5,7 @@ on:
     workflows: ["tests"]
     types:
       - completed
+  workflow_dispatch:
 
 jobs:
   build:
@@ -27,7 +28,6 @@ jobs:
 
       - name: Build Docker image
         run: |
-          cd docker/main
           docker build -f docker/main/dockerfile -t ${{ secrets.DOCKER_USERNAME }}/tw-textforge:latest -t ${{ secrets.DOCKER_USERNAME }}/tw-textforge:${{ steps.version.outputs.tag }} .
 
       - name: Push Docker image
