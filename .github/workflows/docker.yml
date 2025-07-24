@@ -1,6 +1,7 @@
 name: docker
 
 on:
+  workflow_dispatch:
   workflow_run:
     workflows: ["tests"]
     types:
@@ -21,7 +22,7 @@ jobs:
       - name: Extract version from pyproject.toml
         id: version
         run: |
-          version=$(uv run python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])")
+          version=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])")
           echo "tag=$version" >> "$GITHUB_OUTPUT"
           echo "VERSION: $version"
 
