@@ -18,15 +18,19 @@ jobs:
       - name: Docker login
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-      - name: Build Application
+      - name: Extract version from pyproject.toml
+        id: version
         run: |
-          echo "Building Docker Image..."
-          cd docker/main
-          docker compose build --no-cache --pull
+          version=$(uv run python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])")
+          echo "tag=$version" >> "$GITHUB_OUTPUT"
+          echo "VERSION: $version"
 
-      - name: Push to Docker Hub
+      - name: Build Docker image
         run: |
-          echo "Pushing Docker Image to Docker Hub..."
           cd docker/main
-          docker compose push
-          echo "Docker Image pushed successfully!"
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/tw-textforge:latest -t ${{ secrets.DOCKER_USERNAME }}/tw-textforge:${{ steps.version.outputs.tag }} 
+
+      - name: Push Docker image
+        run: |
+          docker push ${{ secrets.DOCKER_USERNAME }}/tw-textforge:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/tw-textforge:${{ steps.version.outputs.tag }}
